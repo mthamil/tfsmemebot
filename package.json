@@ -4,9 +4,11 @@
   "description": "A web service that integrates with TFS webhooks to provide a chat bot with meme functions.",
   "homepage": "http://github.com/mthamil/tfsmemebot",
   "author": "Matt Hamilton",
-  "main": "index.js",
+  "main": "src/app.js",
   "scripts": {
+    "start": "node ./dist/app.js",
     "build": "gulp",
+    "clean": "gulp clean",
     "lint": "eslint ./src"
   },
   "devDependencies": {
@@ -17,5 +19,8 @@
     "gulp": "github:gulpjs/gulp#4.0",
     "gulp-babel": "^6.1.2",
     "gulp-cli": "^1.2.2"
+  },
+  "dependencies": {
+    "express": "^4.14.0"
   }
 }
