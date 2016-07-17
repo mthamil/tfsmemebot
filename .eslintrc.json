@@ -1,0 +1,33 @@
+{
+    // Configuring env and plugins: http://eslint.org/docs/user-guide/configuring
+    // Adding rules: http://eslint.org/docs/rules/
+    "root": true,
+    "extends": [ 
+        "eslint:recommended", 
+        "plugin:import/errors" ],
+    "parserOptions": {
+        "ecmaVersion": 6,
+        "sourceType": "module",
+        "ecmaFeatures": {
+            "impliedStrict": true
+        }
+    },
+    "plugins": [
+        "import"
+    ],
+    "env": {
+      "node": true,
+      "es6": true
+    },
+    "rules": {
+        "curly": "error",
+        "eqeqeq": ["error", "always"],
+        "arrow-spacing": "error",
+        "no-var": "error",
+        "no-duplicate-imports": "error",
+        "no-path-concat": "error",
+        "prefer-const": "error",
+        "import/no-commonjs": "error",
+        "import/export": "error"
+    }
+}
