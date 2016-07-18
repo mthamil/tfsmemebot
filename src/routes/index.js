@@ -16,17 +16,17 @@ router.get("/", (req, res) => {
     request
         .get(searchUrl)
         .then(body => {
-            const searchResult = JSON.parse(body);
+            const response = JSON.parse(body);
 
-            if (searchResult.success) {
+            if (response.success) {
                 const createUrl = URI(memeConfig.apiRoot)
                                     .directory("Instance_Create")
                                     .query({
                                         username: memeConfig.username,
                                         password: memeConfig.password,
                                         languageCode: "en",
-                                        generatorID: searchResult.result.generatorID,
-                                        imageID: new URI(searchResult.result.imageUrl).suffix("").filename().toString(),
+                                        generatorID: response.result.generatorID,
+                                        imageID: new URI(response.result.imageUrl).suffix("").filename().toString(),
                                         text0: req.query.topText,
                                         text1: req.query.bottomText
                                     })
@@ -35,16 +35,16 @@ router.get("/", (req, res) => {
                 return request.get(createUrl);
             }
 
-            return Promise.reject(searchResult);
+            return Promise.reject(response);
         })
         .then(body => {
-            const createResult = JSON.parse(body);
-            if (createResult.success) {
-                res.redirect(302, createResult.result.instanceImageUrl);
+            const response = JSON.parse(body);
+            if (response.success) {
+                res.redirect(302, response.result.instanceImageUrl);
                 return;
             }
             
-            return Promise.reject(createResult);
+            return Promise.reject(response);
         })
         .catch(error => res.send(error));
 });
