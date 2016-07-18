@@ -1,6 +1,7 @@
-import gulp  from "gulp";
-import del   from "del";
-import babel from "gulp-babel";
+import gulp       from "gulp";
+import del        from "del";
+import babel      from "gulp-babel";
+import sourcemaps from "gulp-sourcemaps";
 
 const config = {
     in: "src/",
@@ -12,7 +13,9 @@ export const clean = done =>
 
 export const source = () =>
     gulp.src([`${config.in}**/*.js`], { base: `${config.in}` })
+        .pipe(sourcemaps.init())
         .pipe(babel())
+        .pipe(sourcemaps.write("."))
         .pipe(gulp.dest(config.out));
 
 export const content = gulp.series(() =>
