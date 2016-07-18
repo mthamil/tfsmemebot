@@ -1,6 +1,6 @@
-import gulp     from "gulp";
-import del      from "del";
-import babel    from "gulp-babel";
+import gulp  from "gulp";
+import del   from "del";
+import babel from "gulp-babel";
 
 const config = {
     in: "src/",
