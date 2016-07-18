@@ -28,6 +28,7 @@
         "no-path-concat": "error",
         "prefer-const": "error",
         "import/no-commonjs": "error",
-        "import/export": "error"
+        "import/export": "error",
+        "no-console": "off"
     }
 }
