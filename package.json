@@ -7,6 +7,7 @@
   "main": "src/app.js",
   "scripts": {
     "start": "node ./dist/app.js",
+    "start:watch": "nodemon ./dist/app.js",
     "build": "gulp",
     "clean": "gulp clean",
     "lint": "eslint ./src"
@@ -18,9 +19,14 @@
     "eslint-plugin-import": "^1.10.3",
     "gulp": "github:gulpjs/gulp#4.0",
     "gulp-babel": "^6.1.2",
-    "gulp-cli": "^1.2.2"
+    "gulp-cli": "^1.2.2",
+    "nodemon": "^1.9.2"
   },
   "dependencies": {
-    "express": "^4.14.0"
+    "bluebird": "^3.4.1",
+    "express": "^4.14.0",
+    "request": "^2.73.0",
+    "request-promise": "^4.0.1",
+    "urijs": "^1.18.1"
   }
 }
