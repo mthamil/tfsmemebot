@@ -21,4 +21,7 @@ export const content = gulp.series(() =>
 
 export const build = gulp.series(clean, source, content);
 
+export const watch = () =>
+    gulp.watch([`${config.in}**/*.*`], gulp.series(build));
+
 export default build;
