@@ -20,11 +20,10 @@ router.post("/retrieve", (req, res) => {
                 memeGen
                   .create(result.name, result.topText, result.bottomText)
                   .then(imageUrl => chat.send(message.resource.postedRoomId, imageUrl))
-                  .catch(error => res.send(error));
-                return;
+                  .catch(error => console.log(error));
             } else {
                 chat.send(message.resource.postedRoomId, "MemeBot didn't understand you.")
-                    .catch(error => res.send(error));
+                    .catch(error => console.log(error));
             }
     }
 
