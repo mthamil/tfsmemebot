@@ -1,17 +1,25 @@
-const pattern = /^@memebot\s+\"(.+)\"\s+\"(.+)\"\s+\"(.+)\"$/i;
-
 class CommandParser {
     parse(input) {
-        const parsed  = pattern.exec(input);
-        if (parsed) {
-            return { 
-                name: parsed[1],
-                topText: parsed[2],
-                bottomText: parsed[3] 
-            };
-        } else {
-            return null;
+
+        const prefixIndex = input.indexOf("@memebot ");
+        if (prefixIndex > -1) {
+            input = input.substr(prefixIndex + 8);
+            const tokens = input.trim().split(";");
+
+            const result = { name: "", topText: "", bottomText: "" };
+            if (tokens.length > 1) {
+                result.name = tokens[0].trim();
+                result.topText = tokens[1].trim();
+
+                if (tokens.length > 2) {
+                    result.bottomText = tokens[2].trim();
+                }
+
+                return result;
+            }  
         }
+
+        return null;
     }
 }
 
