@@ -22,6 +22,9 @@ router.post("/retrieve", (req, res) => {
                   .then(imageUrl => chat.send(message.resource.postedRoomId, imageUrl))
                   .catch(error => res.send(error));
                 return;
+            } else {
+                chat.send(message.resource.postedRoomId, "MemeBot didn't understand you.")
+                    .catch(error => res.send(error));
             }
     }
 
