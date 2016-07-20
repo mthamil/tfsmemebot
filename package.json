@@ -5,6 +5,10 @@
   "homepage": "http://github.com/mthamil/tfsmemebot",
   "author": "Matt Hamilton",
   "main": "src/app.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mthamil/tfsmemebot.git"
+  },
   "scripts": {
     "start": "node ./dist/app.js",
     "start:watch": "pm2 start ./dist/app.js --watch",
