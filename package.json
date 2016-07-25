@@ -16,7 +16,9 @@
     "clean": "gulp clean",
     "lint": "eslint ./src",
     "test": "mocha ./dist/tests --recursive",
-    "publish": "robocopy  .\\ \\\\devtfsbld01.sfdev.storefinancial.domain\\memebot /MIR /XD .git node_modules"
+    "clean:remote": "n-clean //devtfsbld01.sfdev.storefinancial.domain/memebot/dist",
+    "deploy:remote": "n-copy --source . --destination //devtfsbld01.sfdev.storefinancial.domain/memebot \"./**/*\" --ignore \"./node_modules/**/*\"",
+    "publish:remote": "npm run clean:remote && npm run deploy:remote"
   },
   "devDependencies": {
     "babel-preset-es2015": "^6.9.0",
@@ -29,6 +31,7 @@
     "gulp-cli": "^1.2.2",
     "gulp-sourcemaps": "^1.6.0",
     "mocha": "^2.5.3",
+    "npm-build-tools": "^2.2.5",
     "pm2": "^1.1.3"
   },
   "dependencies": {
