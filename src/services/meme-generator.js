@@ -15,7 +15,7 @@ class MemeGenerator {
     create(name, topText, bottomText) {
         const searchUrl = URI(this.apiRoot)
                             .directory("Generator_Select_ByUrlNameOrGeneratorID")
-                            .query({ urlName: name.replace(" ", "-") })
+                            .query({ urlName: name.replace(/ /g, "-") })
                             .toString();
         return request
                 .get(searchUrl)
@@ -46,7 +46,7 @@ class MemeGenerator {
                     if (response.success) {
                         return response.result.instanceImageUrl;
                     }
-                    
+
                     return Promise.reject(response);
                 });
     }
