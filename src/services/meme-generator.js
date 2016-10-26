@@ -1,7 +1,7 @@
-import request     from "request-promise";
+import request from "request-promise";
 import { Promise } from "bluebird";
-import URI         from "urijs";
-import config      from "config";
+import URI from "urijs";
+import config from "config";
 
 class MemeGenerator {
 

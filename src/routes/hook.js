@@ -1,7 +1,7 @@
-import { Router }        from "express";
+import { Router } from "express";
 import { MemeGenerator } from "../services/meme-generator";
-import { parser }        from "../services/command-parser";
-import { ChatService }   from "../services/chat";
+import { parser } from "../services/command-parser";
+import { ChatService } from "../services/chat";
 
 const router = Router();
 

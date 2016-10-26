@@ -1,8 +1,8 @@
-import express             from "express";
-import bodyParser          from "body-parser";
+import express from "express";
+import bodyParser from "body-parser";
 import { router as index } from "./routes/index";
 import { router as hooks } from "./routes/hook";
-import config              from "config";
+import config from "config";
 
 const serverConfig = config.get("Server");
 const app = express();

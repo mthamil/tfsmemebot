@@ -1,7 +1,7 @@
-import request     from "request-ntlm-continued";
+import request from "request-ntlm-continued";
 import { Promise } from "bluebird";
 import URITemplate from "urijs/src/URITemplate";
-import config      from "config";
+import config from "config";
 
 const post = Promise.promisify(request.post, { context: request });
 
