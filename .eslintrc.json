@@ -7,7 +7,7 @@
         "plugin:import/errors" 
     ],
     "parserOptions": {
-        "ecmaVersion": 6,
+        "ecmaVersion": 8,
         "sourceType": "module",
         "ecmaFeatures": {
             "impliedStrict": true
@@ -17,8 +17,7 @@
         "import"
     ],
     "env": {
-      "node": true,
-      "es6": true
+      "node": true
     },
     "rules": {
         "curly": "error",
