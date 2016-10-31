@@ -16,15 +16,16 @@ class ChatService {
     }
 
     send(roomId, message) {
-          return post({
-                    url: URITemplate(this.apiRoot).expand({ roomId }).toString(),
-                    username: this.username,
-                    password: this.password,
-                    ntlm_domain: this.domain,
-                    workstation: this.workstation
-                }, { 
-                    content: message 
-                });
+        console.log("Outgoing chat message: %s", message);
+        return post({
+                  url: URITemplate(this.apiRoot).expand({ roomId }).toString(),
+                  username: this.username,
+                  password: this.password,
+                  ntlm_domain: this.domain,
+                  workstation: this.workstation
+               }, { 
+                   content: message 
+               });
     }
 }
 
