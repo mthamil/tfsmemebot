@@ -12,6 +12,7 @@ const serverConfig = config.get("Server");
 const app = new Koa();
 
 app.context.onerror = errorHandler;
+app.context.api = true;
 app.use(convert(bodyParser()));
 
 const base = "/memebot";
