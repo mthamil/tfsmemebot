@@ -1,33 +1,43 @@
-import { Router } from "express";
+import Router from "koa-better-router";
 import { MemeGenerator } from "../services/meme-generator";
 import { parser } from "../services/command-parser";
 import { ChatService } from "../services/chat";
 
-const router = Router();
+const router = new Router().loadMethods();
 
-router.post("/retrieve", (req, res) => {
+router.post("/retrieve", async (ctx, next) => {
     const memeGen = new MemeGenerator();
     const chat = new ChatService();
-    const message = req.body;
+    const message = ctx.request.fields;
 
-    if (message.eventType && message.eventType === "message.posted" &&
-        message.publisherId && message.publisherId === "tfs" &&
-        message.resource && message.resource.content) {
+    try {
+        if (message.eventType && message.eventType === "message.posted" &&
+            message.publisherId && message.publisherId === "tfs" &&
+            message.resource && message.resource.content) {
 
-            const command = message.resource.content;
-            const result = parser.parse(command);
-            if (result) {
-                memeGen
-                  .create(result.name, result.topText, result.bottomText)
-                  .then(imageUrl => chat.send(message.resource.postedRoomId, imageUrl))
-                  .catch(error => console.log(error));
-            } else {
-                chat.send(message.resource.postedRoomId, "MemeBot didn't understand you.")
-                    .catch(error => console.log(error));
-            }
+                const command = message.resource.content;
+                const result = parser.parse(command);
+                let chatMessage = null;
+                if (result) {
+                    try {
+                        const imageUrl = await memeGen.create(result.name, 
+                                                              result.topText, 
+                                                              result.bottomText);
+                        chatMessage = imageUrl;
+                    } catch (error) {
+                        console.log(error);
+                        chatMessage = `Sorry ${message.resource.postedBy.displayName}, MemeBot couldn't find a meme called '${result.name}'.`;
+                    }
+                } else {
+                    chatMessage = `Sorry ${message.resource.postedBy.displayName}, MemeBot didn't understand you.`;
+                }
+                
+                chat.send(message.resource.postedRoomId, chatMessage);
+        }
+    } finally {
+        ctx.response.status = 200;
+        await next();
     }
-
-    res.sendStatus(200);
 });
 
 export { router };

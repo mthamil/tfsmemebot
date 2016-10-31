@@ -1,15 +1,18 @@
-import { Router }        from "express";
+import Router from "koa-better-router";
 import { MemeGenerator } from "../services/meme-generator";
 
-const router = Router();
+const router = new Router().loadMethods();
 
-router.get("/", (req, res) => {
+router.get("/", async (ctx, next) => {
     const memeGen = new MemeGenerator();
-    memeGen.create(req.query.displayName,
-                   req.query.topText,
-                   req.query.bottomText)
-           .then(url => res.redirect(302, url))
-           .catch(error => res.send(error));
+    try {
+        const url = await memeGen.create(ctx.request.query.displayName,
+                                         ctx.request.query.topText,
+                                         ctx.request.query.bottomText);
+        ctx.response.redirect(url);
+    } finally {
+        await next();
+    }
 });
 
 export { router };

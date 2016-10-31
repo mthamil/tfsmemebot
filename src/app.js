@@ -1,21 +1,25 @@
 import "babel-polyfill";
-import express from "express";
-import bodyParser from "body-parser";
+import Koa from "koa";
+import convert from "koa-convert";
+import errorHandler from "koa-better-error-handler";
+import bodyParser from "koa-better-body";
+import mount from "koa-mount";
 import { router as index } from "./routes/index";
 import { router as hooks } from "./routes/hook";
 import config from "config";
 
 const serverConfig = config.get("Server");
-const app = express();
+const app = new Koa();
 
-app.use(bodyParser.json());
+app.context.onerror = errorHandler;
+app.use(convert(bodyParser()));
 
 const base = "/memebot";
-app.use(base, index);
-app.use(base, hooks);
+app.use(mount(base, index.middleware()));
+app.use(mount(base, hooks.middleware()));
 
 app.listen(serverConfig.port, () => {
-  console.log('memebot is listening...');
+  console.log("memebot is listening...");
 });
 
 export { app };
