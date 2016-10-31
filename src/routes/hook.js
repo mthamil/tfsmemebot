@@ -26,10 +26,10 @@ router.post("/retrieve", async (ctx, next) => {
                         chatMessage = imageUrl;
                     } catch (error) {
                         console.log(error);
-                        chatMessage = `Sorry ${message.resource.postedBy.displayName}, MemeBot couldn't find a meme called '${result.name}'.`;
+                        chatMessage = `Sorry ${formatName(message)}, MemeBot couldn't find a meme called '${result.name}'.`;
                     }
                 } else {
-                    chatMessage = `Sorry ${message.resource.postedBy.displayName}, MemeBot didn't understand you.`;
+                    chatMessage = `Sorry ${formatName(message)}, MemeBot didn't understand you.`;
                 }
                 
                 chat.send(message.resource.postedRoomId, chatMessage);
@@ -39,5 +39,11 @@ router.post("/retrieve", async (ctx, next) => {
         await next();
     }
 });
+
+function formatName(message) {
+    const name = message.resource.postedBy.displayName;
+    const parts = name.split(",");
+    return parts.length > 1 ? `${parts[1].trim()} ${parts[0]}`: name;
+}
 
 export { router };
