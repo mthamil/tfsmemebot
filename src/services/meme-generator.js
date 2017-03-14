@@ -13,24 +13,25 @@ class MemeGenerator {
 
     async create(name, topText, bottomText) {
         const searchUrl = URI(this.apiRoot)
-                            .directory("Generator_Select_ByUrlNameOrGeneratorID")
-                            .query({ urlName: name.replace(/ /g, "-") })
+                            .directory("Generators_Search")
+                            .query({ q: encodeURIComponent(name.replace(/ /g, "-")), pageIndex: 0, pageSize: 1 })
                             .toString();
 
         const searchBody = await request.get(searchUrl);
         const searchResponse = JSON.parse(searchBody);
-        if (!searchResponse.success) {
+        if (!searchResponse.success || searchResponse.result.length === 0) {
             throw searchResponse;
-        } 
-        
+        }
+
+        const searchResult = searchResponse.result[0];
         const createUrl = URI(this.apiRoot)
                             .directory("Instance_Create")
                             .query({
                                 username: this.username,
                                 password: this.password,
                                 languageCode: "en",
-                                generatorID: searchResponse.result.generatorID,
-                                imageID: new URI(searchResponse.result.imageUrl).suffix("").filename().toString(),
+                                generatorID: searchResult.generatorID,
+                                imageID: new URI(searchResult.imageUrl).suffix("").filename().toString(),
                                 text0: topText,
                                 text1: bottomText
                             })
