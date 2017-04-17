@@ -14,7 +14,7 @@ class MemeGenerator {
     async create(name, topText, bottomText) {
         const searchUrl = URI(this.apiRoot)
                             .directory("Generators_Search")
-                            .query({ q: encodeURIComponent(name.replace(/ /g, "-")), pageIndex: 0, pageSize: 1 })
+                            .query({ q: name, pageIndex: 0, pageSize: 1 })
                             .toString();
 
         const searchBody = await request.get(searchUrl);
