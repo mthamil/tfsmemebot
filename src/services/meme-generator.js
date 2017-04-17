@@ -9,12 +9,13 @@ class MemeGenerator {
         this.apiRoot = memeConfig.apiRoot;
         this.username = memeConfig.username;
         this.password = memeConfig.password;
+        this.apiKey = memeConfig.apiKey;
     }
 
     async create(name, topText, bottomText) {
         const searchUrl = URI(this.apiRoot)
                             .directory("Generators_Search")
-                            .query({ q: name, pageIndex: 0, pageSize: 1 })
+                            .query({ q: name, pageIndex: 0, pageSize: 1, apiKey: this.apiKey })
                             .toString();
 
         const searchBody = await request.get(searchUrl);
@@ -27,7 +28,7 @@ class MemeGenerator {
         if (searchResponse.result.length === 0) {
             const lookupUrl = URI(this.apiRoot)
                                 .directory("Generator_Select_ByUrlNameOrGeneratorID")
-                                .query({ urlName: name.replace(/ /g, "-") })
+                                .query({ urlName: name.replace(/ /g, "-"), apiKey: this.apiKey })
                                 .toString();
 
             const lookupBody = await request.get(lookupUrl);
@@ -45,6 +46,7 @@ class MemeGenerator {
                             .query({
                                 username: this.username,
                                 password: this.password,
+                                apiKey: this.apiKey,
                                 languageCode: "en",
                                 generatorID: searchResult.generatorID,
                                 imageID: new URI(searchResult.imageUrl).suffix("").filename().toString(),
