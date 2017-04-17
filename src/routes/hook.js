@@ -26,7 +26,11 @@ router.post("/retrieve", async (ctx, next) => {
                         chatMessage = imageUrl;
                     } catch (error) {
                         console.log(error);
-                        chatMessage = `Sorry ${formatName(message)}, MemeBot couldn't find a meme called '${result.name}'.`;
+                        if (error.errorMessage === "Please enter some text.") {
+                            chatMessage = `Sorry, ${formatName(message)}, you must enter some delicious meme text.`
+                        } else{
+                            chatMessage = `Sorry ${formatName(message)}, MemeBot couldn't find a meme called '${result.name}'.`;
+                        }
                     }
                 } else {
                     chatMessage = `Sorry ${formatName(message)}, MemeBot didn't understand you.`;
