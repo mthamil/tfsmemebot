@@ -49,9 +49,9 @@ class MemeGenerator {
                                 apiKey: this.apiKey,
                                 languageCode: "en",
                                 generatorID: searchResult.generatorID,
-                                imageID: new URI(searchResult.imageUrl).suffix("").filename().toString(),
+                                imageID: searchResult.imageID,
                                 text0: topText,
-                                text1: bottomText
+                                text1: bottomText || undefined
                             })
                             .toString();
 
